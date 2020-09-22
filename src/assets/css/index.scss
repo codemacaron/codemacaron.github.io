@@ -1,0 +1,54 @@
+@for $i from 1 to 100 {
+  // margin
+  .m{
+    &r#{$i} {
+      margin-right: 1px * $i !important;
+    }
+    &l#{$i} {
+      margin-left: 1px * $i !important;
+    }
+    &t#{$i} {
+      margin-top: 1px * $i !important;
+    }
+    &b#{$i} {
+      margin-bottom: 1px * $i !important;
+    }
+  }
+
+  // padding
+  .p{
+    &r#{$i} {
+      padding-right: 1px * $i !important;
+    }
+    &l#{$i} {
+      padding-left: 1px * $i !important;
+    }
+    &t#{$i} {
+      padding-top: 1px * $i !important;
+    }
+    &b#{$i} {
+      padding-bottom: 1px * $i !important;
+    }
+  }
+}
+
+// 웹 접근성을 고려한 대체 텍스트 처리
+.a11y-hidden {
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0 0 0 0); /* IE 6,7 */
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  &.focusable:focus {
+    overflow: visible;
+    position: static;
+    clip: auto;
+    width: auto;
+    height: auto;
+    margin: 0;
+  }
+}
