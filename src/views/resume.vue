@@ -1,12 +1,10 @@
 <template>
   <v-container class="resume" fluid>
-    <h1>
-      <v-icon left>mdi-label</v-icon>이력서 (Resume)
-    </h1>
+    <h1><v-icon left>mdi-label</v-icon>이력서 (Resume)</h1>
     <div v-if="getResume && loaded">
       <!-- <v-card outlined v-for="(item, index) in getResume" :key="index"> -->
       <v-card outlined v-if="getResume.personInfo">
-        <v-card-title>{{getResume.personInfo.title}}</v-card-title>
+        <v-card-title>{{ getResume.personInfo.title }}</v-card-title>
         <v-card-text>
           <ul>
             <li v-if="getResume.personInfo.info.name">
@@ -34,7 +32,7 @@
       </v-card>
 
       <v-card outlined v-if="getResume.schoolInfo">
-        <v-card-title>{{getResume.schoolInfo.title}}</v-card-title>
+        <v-card-title>{{ getResume.schoolInfo.title }}</v-card-title>
         <v-card-text>
           <!-- <pre>{{getResume.schoolInfo.info}}</pre> -->
           <v-data-table
@@ -50,7 +48,7 @@
       </v-card>
 
       <v-card outlined v-if="getResume.studyInfo">
-        <v-card-title>{{getResume.studyInfo.title}}</v-card-title>
+        <v-card-title>{{ getResume.studyInfo.title }}</v-card-title>
         <v-card-text>
           <v-data-table
             :headers="studyInfoHeader"
@@ -72,7 +70,8 @@
                   :key="i"
                   small
                   class="mr10"
-                >{{ li }}</v-chip>
+                  >{{ li }}</v-chip
+                >
               </div>
             </template>
           </v-data-table>
@@ -80,9 +79,22 @@
       </v-card>
 
       <v-card outlined v-if="getResume.skillInfo">
-        <v-card-title>{{getResume.skillInfo.title}}</v-card-title>
+        <v-card-title>{{ getResume.skillInfo.title }}</v-card-title>
         <v-card-text>
-          <v-data-table
+          <ul>
+            <li
+              v-for="(item, idx) in getResume.skillInfo.info"
+              :key="`skillInfo_${idx}`"
+            >
+              <v-chip label color="primary" outlined pill small class="mr10">
+                {{ item.skill }}
+              </v-chip>
+              <div class="detail">
+                {{ item.detail }}
+              </div>
+            </li>
+          </ul>
+          <!-- <v-data-table
             :headers="skillInfoHeader"
             :items="getResume.skillInfo.info"
             hide-default-footer
@@ -92,14 +104,16 @@
             class="custom-table"
           >
             <template v-slot:item.level="{ item }">
-              <v-chip label color="primary" outlined pill small class="mr10">{{ item.level }}</v-chip>
+              <v-chip label color="primary" outlined pill small class="mr10">{{
+                item.level
+              }}</v-chip>
             </template>
-          </v-data-table>
+          </v-data-table> -->
         </v-card-text>
       </v-card>
 
       <v-card outlined v-if="getResume.workInfo">
-        <v-card-title>{{getResume.workInfo.title}}</v-card-title>
+        <v-card-title>{{ getResume.workInfo.title }}</v-card-title>
         <v-card-text>
           <v-data-table
             :headers="workInfoHeader"
@@ -115,7 +129,12 @@
     </div>
 
     <v-overlay :value="!loaded">
-      <v-progress-circular indeterminate color="primary" :size="50" :width="7" />
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        :size="50"
+        :width="7"
+      />
     </v-overlay>
   </v-container>
 </template>
@@ -177,11 +196,6 @@ export default {
           text: "스킬",
           align: "start",
           value: "skill",
-        },
-        {
-          text: "레벨",
-          align: "start",
-          value: "level",
         },
         {
           text: "상세내용",
@@ -298,6 +312,9 @@ $text: calc(100% - #{$title});
 
       > div {
         width: $text;
+        &.detail {
+          width: calc(100% - 200px);
+        }
         span {
           margin-right: 20px;
           &:last-of-type {
